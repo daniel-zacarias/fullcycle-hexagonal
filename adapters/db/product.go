@@ -32,14 +32,17 @@ func (p ProductDb) Get(id string) (application.ProductInterface, error) {
 }
 
 func (p ProductDb) Save(product application.ProductInterface) (application.ProductInterface, error) {
-	var rows int
-	p.db.QueryRow("Select id from product where id = ?", product.GetID()).Scan(&rows)
-	if rows == 0 {
-		_, err := p.create(product)
-		if err != nil {
+	var id string
+	err := p.db.QueryRow("SELECT id FROM product WHERE id = ?", product.GetID()).Scan(&id)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			_, err := p.create(product)
+			if err != nil {
+				return nil, err
+			}
+		} else {
 			return nil, err
 		}
-
 	} else {
 		_, err := p.update(product)
 		if err != nil {
