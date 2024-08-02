@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Docker: Attach to Go",
+        "type": "go",
+        "request": "attach",
+        "mode": "remote",
+        "remotePath": "/go/src",
+        "port": 2345,
+        "host": "127.0.0.1"
+      }
+    ]
+  }
+  
