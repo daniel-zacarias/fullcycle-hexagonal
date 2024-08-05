@@ -53,6 +53,7 @@ func TestProductService_EnableDisable(t *testing.T) {
 	product := mock_application.NewMockProductInterface(ctrl)
 	product.EXPECT().Enable().Return(nil)
 	product.EXPECT().Disable().Return(nil)
+	product.EXPECT().ChangePrice(gomock.Any()).Return(nil).AnyTimes()
 	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 
