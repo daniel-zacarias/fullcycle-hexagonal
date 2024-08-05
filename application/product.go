@@ -15,6 +15,7 @@ type ProductInterface interface {
 	IsValid() (bool, error)
 	Enable() error
 	Disable() error
+	ChangePrice(price float64) error
 	GetID() string
 	GetName() string
 	GetStatus() string
@@ -97,6 +98,14 @@ func (p *Product) Disable() error {
 		return nil
 	}
 	return errors.New("the price must be zero in order to have the product disable")
+}
+
+func (p *Product) ChangePrice(value float64) error {
+	if value >= 0 {
+		p.Price = value
+		return nil
+	}
+	return errors.New("the price must be greather than zero")
 }
 
 func (p *Product) GetID() string {
